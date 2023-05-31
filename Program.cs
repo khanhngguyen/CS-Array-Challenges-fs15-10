@@ -7,11 +7,28 @@ Expected result: int[] {1,2} since 1 and 2 are both available in sub arrays.
 
 int[] CommonItems(int[][] jaggedArray)
 {
-
+    var result = new List<int>();
+    foreach (var item1 in jaggedArray[0])
+    {
+        foreach (var item2 in jaggedArray[1])
+        {
+            if(item1 == item2)
+            {
+                result.Add(item1);
+            }
+        }
+    }
+    return result.ToArray();
 }
 int[][] arr1 = { new int[] { 1, 2 }, new int[] { 2, 1, 5 } };
 int[] arr1Common = CommonItems(arr1);
 /* write method to print arr1Common */
+Console.Write("Common items: ");
+foreach (var item in arr1Common)
+{
+    Console.Write("{0} ", item);
+}
+
 
 /* 
 Challenge 2. Inverse the elements of a jagged array.
@@ -20,11 +37,25 @@ Expected result: int[][] arr = {new int[]{2, 1}, new int[]{3, 2, 1}}
 */
 void InverseJagged(int[][] jaggedArray)
 {
-
+    for (int i = 0; i < jaggedArray.Length; i++)
+    {
+        Array.Reverse(jaggedArray[i]);
+    }
 }
 int[][] arr2 = { new int[] { 1, 2 }, new int[] { 1, 2, 3 } };
 InverseJagged(arr2);
 /* write method to print arr2 */
+Console.Write("Reversed jagged array: {");
+for (int i = 0; i < arr2.Length; i++)
+{
+    Console.Write("{");
+    foreach (var item in arr2[i])
+    {
+        Console.Write("{0}", item);
+    }
+    Console.Write("} ");
+}
+Console.Write("}");
 
 /* 
 Challenge 3.Find the difference between 2 consecutive elements of an array.
@@ -33,11 +64,29 @@ Expected result: int[][] arr = {new int[] {-1}, new int[]{-1, -1}}
  */
 void CalculateDiff(int[][] jaggedArray)
 {
-
+    for (int i = 0; i < jaggedArray.Length; i++)
+    {
+        for (int j = 0; j < jaggedArray[i].Length - 1; j++)
+        {
+            jaggedArray[i][j] = jaggedArray[i][j] - jaggedArray[i][j + 1];
+        }
+        Array.Resize(ref jaggedArray[i], jaggedArray[i].Length - 1);
+    }
 }
 int[][] arr3 = { new int[] { 1, 2 }, new int[] { 1, 2, 3 } };
 CalculateDiff(arr3);
 /* write method to print arr3 */
+Console.Write("Difference between 2 consecutive elements of an array: {");
+for (int i = 0; i < arr3.Length; i++)
+{
+    Console.Write("{");
+    foreach (var item in arr3[i])
+    {
+        Console.Write("{0}", item);
+    }
+    Console.Write("}");
+}
+Console.Write("}");
 
 
 /* 
