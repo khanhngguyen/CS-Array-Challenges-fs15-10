@@ -23,11 +23,16 @@ int[] CommonItems(int[][] jaggedArray)
 int[][] arr1 = { new int[] { 1, 2 }, new int[] { 2, 1, 5 } };
 int[] arr1Common = CommonItems(arr1);
 /* write method to print arr1Common */
-Console.Write("Common items: ");
-foreach (var item in arr1Common)
+Console.Write("Common items: {");
+for (int i = 0; i < arr1Common.Length; i++)
 {
-    Console.Write("{0} ", item);
+	Console.Write("{0}", arr1Common[i]);
+	if (i < arr1Common.Length - 1)
+	{
+		Console.Write(", ");
+	}
 }
+Console.Write("}");
 
 
 /* 
@@ -49,11 +54,19 @@ Console.Write("Reversed jagged array: {");
 for (int i = 0; i < arr2.Length; i++)
 {
     Console.Write("{");
-    foreach (var item in arr2[i])
-    {
-        Console.Write("{0}", item);
-    }
-    Console.Write("} ");
+	for (int j = 0; j < arr2[i].Length; j++)
+	{
+		Console.Write("{0}", arr2[i][j]);
+		if (j < arr2[i].Length - 1)
+		{
+			Console.Write(", ");
+		}
+	}
+    Console.Write("}");
+	if (i < arr2.Length - 1)
+	{
+		Console.Write(", ");
+	}
 }
 Console.Write("}");
 
@@ -80,11 +93,19 @@ Console.Write("Difference between 2 consecutive elements of an array: {");
 for (int i = 0; i < arr3.Length; i++)
 {
     Console.Write("{");
-    foreach (var item in arr3[i])
-    {
-        Console.Write("{0}", item);
-    }
+	for (int j = 0; j < arr3[i].Length; j++)
+	{
+		Console.Write("{0}", arr3[i][j]);
+		if (j < arr3[i].Length - 1)
+		{
+			Console.Write(", ");
+		}
+	}
     Console.Write("}");
+	if (i < arr3.Length - 1)
+	{
+		Console.Write(", ");
+	}
 }
 Console.Write("}");
 
@@ -96,11 +117,38 @@ Expected result: {{1,4},{2,5},{3,6}}
  */
 int[,] InverseRec(int[,] recArray)
 {
-
+    int[,] resultArray = new int[recArray.GetLength(1), recArray.GetLength(0)];
+    for (int i = 0; i < resultArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < resultArray.GetLength(1); j++)
+        {
+            resultArray[i, j] = recArray[j, i];
+        }
+    }
+    return resultArray;
 }
 int[,] arr4 = { { 1, 2, 3 }, { 4, 5, 6 } };
 int[,] arr4Inverse = InverseRec(arr4);
 /* write method to print arr4Inverse */
+Console.Write("Inverse column/row of a rectangular array: {");
+for (int i = 0; i < arr4Inverse.GetLength(0); i++)
+{
+    Console.Write("{");
+    for (int j = 0; j < arr4Inverse.GetLength(1); j++)
+    {
+        Console.Write("{0}", arr4Inverse[i, j]);
+        if (j < arr4Inverse.GetLength(1) - 1)
+		{
+			Console.Write(", ");
+		}
+    }
+    Console.Write("}");
+    if (i < arr4Inverse.GetLength(0) - 1)
+	{
+		Console.Write(", ");
+	}
+}
+Console.Write("}");
 
 /* 
 Challenge 5. Write a function that accepts a variable number of params of any of these types: 
