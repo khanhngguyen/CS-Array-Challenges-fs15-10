@@ -158,9 +158,23 @@ string, number.
 - Finally print everything out. 
 Example: Demo("hello", 1, 2, "world") 
 Expected result: hello world; 3 */
-void Demo()
+void Demo(params object[] input)
 {
-
+    int sum = 0;
+    string sentence = "";
+    foreach (var item in input)
+    {
+        if (item is string)
+        {
+            sentence += item + " ";
+        }
+        else if (item is int)
+        {
+            sum += (int) item;
+        }
+    }
+    sentence = sentence.Trim();
+    Console.WriteLine("{0}; {1}", sentence, sum);
 }
 Demo("hello", 1, 2, "world"); //should print out "hello world; 3"
 Demo("My", 2, 3, "daughter", true, "is");//should print put "My daughter is; 5"
