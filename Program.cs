@@ -32,7 +32,7 @@ for (int i = 0; i < arr1Common.Length; i++)
 		Console.Write(", ");
 	}
 }
-Console.Write("}");
+Console.Write("}\n");
 
 
 /* 
@@ -68,7 +68,7 @@ for (int i = 0; i < arr2.Length; i++)
 		Console.Write(", ");
 	}
 }
-Console.Write("}");
+Console.Write("}\n");
 
 /* 
 Challenge 3.Find the difference between 2 consecutive elements of an array.
@@ -107,7 +107,7 @@ for (int i = 0; i < arr3.Length; i++)
 		Console.Write(", ");
 	}
 }
-Console.Write("}");
+Console.Write("}\n");
 
 
 /* 
@@ -148,7 +148,7 @@ for (int i = 0; i < arr4Inverse.GetLength(0); i++)
 		Console.Write(", ");
 	}
 }
-Console.Write("}");
+Console.Write("}\n");
 
 /* 
 Challenge 5. Write a function that accepts a variable number of params of any of these types: 
@@ -315,6 +315,10 @@ class OrderItem : Product
     }
 
     /* Override ToString() method so the item can be printed out conveniently with Id, Price, and Quantity */
+    public override string ToString()
+    {
+        return $"Product id: {this.Id}, price: {this.Price}, quantity: {this.Quantity}";
+    }
 }
 
 class Cart
@@ -322,19 +326,89 @@ class Cart
     private List<OrderItem> _cart { get; set; } = new List<OrderItem>();
 
     /* Write indexer property to get nth item from _cart */
+    public OrderItem this[int index]
+    {
+        get 
+        {
+            if (index >= 0 && index < _cart.Count)
+            {
+                return _cart[index];
+            }
+            else 
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+    }
 
     /* Write indexer property to get items of a range from _cart */
+    public List<OrderItem> this[int start, int end]
+    {
+        get 
+        {
+            if (start >= 0 && end < _cart.Count)
+            {
+                int length = end - start + 1;
+                return _cart.GetRange(start, length);
+            }
+            else 
+            {
+                throw new IndexOutOfRangeException();
+            }
+        }
+    }
 
     public void AddToCart(params OrderItem[] items)
     {
         /* this method should check if each item exists --> increase value / or else, add item to cart */
+        foreach (OrderItem item in items)
+        {
+            var existingItem = _cart.Find(i => i.Id == item.Id);
+            if (existingItem != null)
+            {
+                existingItem.Quantity += item.Quantity;
+            }
+            else 
+            {
+                _cart.Add(item);
+            }
+        }
     }
     /* Write another method called Index */
+    public OrderItem Index(int index)
+    {
+        if (index >= 0 && index < _cart.Count)
+        {
+            return _cart[index];
+        }
+        else 
+        {
+            throw new IndexOutOfRangeException();
+        }
+    }
 
     /* Write another method called GetCartInfo(), which out put 2 values: 
     total price, total products in cart*/
+    public void GetCartInfo(out int totalPrice, out int totalQuantity)
+    {
+        totalPrice = 0;
+        totalQuantity = 0;
+        for (int i = 0; i < _cart.Count; i++)
+        {
+            totalPrice += _cart[i].Price;
+            totalQuantity += _cart[i].Quantity;
+        }
+    }
 
     /* Override ToString() method so Console.WriteLine(cart) can print
     id, unit price, unit quantity of each item*/
-
+    public override string ToString()
+    {
+        string text = "";
+        foreach (OrderItem item in _cart)
+        {
+            text += $"Item id: {item.Id}, price: {item.Price}, quantity: {item.Quantity}\n";
+        }
+        return text;
+    }
 }
