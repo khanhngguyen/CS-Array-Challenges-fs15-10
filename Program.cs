@@ -183,18 +183,82 @@ Demo("My", 2, 3, "daughter", true, "is");//should print put "My daughter is; 5"
 /* Challenge 6. Write a function to swap 2 objects but only if they are of the same type 
 and if they’re string, lengths have to be more than 5. 
 If they’re numbers, they have to be more than 18. */
-void SwapTwo()
+void SwapTwo(object input1, object input2)
 {
-
+    Console.WriteLine("Original inputs: {0} & {1}", input1, input2);
+    if (input1.GetType() != input2.GetType())
+    {
+        Console.WriteLine("Input objects are not the same type");
+    }
+    else if (input1 is string string1 && input2 is string string2) 
+    {
+        if (string1.Length < 5 || string2.Length < 5)
+        {
+            Console.WriteLine("Strings \' length should be more than 5");
+        }
+        else
+        {
+            string temp = string1;
+            string1 = string2;
+            string2 = temp;
+            Console.WriteLine("Strings are now swapped: {0} & {1}", string1, string2);
+        }
+    }
+    else if (input1 is int int1 && input2 is int int2)
+    {
+        if (int1 < 18 || int2 < 18)
+        {
+            Console.WriteLine("Numbers should be more than 18");
+        }
+        else 
+        {
+            int temp = int1;
+            int1 = int2;
+            int2 = temp;
+            Console.WriteLine("Numbers are now swapped: {0} & {1}", int1, int2);
+        }
+    }
 }
-
+SwapTwo("hello", "world");
+SwapTwo("test", "input");
+SwapTwo(20, 30);
+SwapTwo(10, 5);
+SwapTwo("hello", 10);
 /* Challenge 7. Write a function that does the guessing game. 
 The function will think of a random integer number (lets say within 100) 
 and ask the user to input a guess. 
 It’ll repeat the asking until the user puts the correct answer. */
 void GuessingGame()
 {
-
+    Random random = new Random();
+    bool playing = true;
+    int guess;
+    int number;
+    int tries;
+    Console.WriteLine("Guess a number between 1 and 100: ");
+    while (playing)
+    {
+        tries = 0;
+        guess = 0;
+        number = random.Next(1, 101);
+        while (guess != number)
+        {
+            guess = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Your guess: " + guess);
+            if (guess < number)
+            {
+                Console.WriteLine("Your guess is too low");
+            }
+            else if (guess > number)
+            {
+                Console.WriteLine("Your guess is too high");
+            }
+            // guess = Convert.ToInt32(Console.ReadLine());
+            tries++;
+        }
+        Console.WriteLine("Your guess is correct, the number is " + number);
+        Console.WriteLine("You win in {0} tries", tries);
+    }
 }
 GuessingGame();
 
