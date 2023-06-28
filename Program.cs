@@ -194,7 +194,7 @@ void SwapTwo(object input1, object input2)
     {
         if (string1.Length < 5 || string2.Length < 5)
         {
-            Console.WriteLine("Strings \' length should be more than 5");
+            Console.WriteLine("Strings\' length should be more than 5");
         }
         else
         {
@@ -291,7 +291,11 @@ Console.WriteLine("Total Quantity: {0}, Total Price: {1}", totalQuantity, totalP
 
 //get sub array from a range
 var subCart = cart[1, 3];
-Console.WriteLine(subCart);
+// Console.WriteLine(subCart);
+foreach (var item in subCart)
+{
+    Console.WriteLine(item);
+}
 
 class Product
 {
